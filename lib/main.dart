@@ -30,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ConnectApi repositorio = new ConnectApi();
 
+  String nomeAnime = "Futuro app de anime";
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,22 +43,51 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
-              'Futuro app de anime:',
+              nomeAnime,
             ),
           ],
         ),
       ),
+      floatingActionButton: new FloatingActionButton(
+          elevation: 0.0,
+          child: new Icon(Icons.check),
+          backgroundColor: Colors.lightBlue,
+          onPressed: (){
+
+            loadAnimes();
+
+          }
+      ),
     );
+  }
+
+
+  void loadAnimes() async{
+
+    Map map = await repositorio.loadAnimes();
+
+    print(map);
+    print('Nome primeiro anime: ${map['data'][0]['name']}');
+
+    setState(() {
+      nomeAnime = map['data'][0]['name'];
+    });
+
   }
 }
 
 
 class ConnectApi{
+
   final String url = 'http://104.131.18.84/anime/animes';
 
-  Future <List> loadAnimes() async{
+  Future <Map> loadAnimes() async{
     String apiUrl = url;
     http.Response response = await http.get(apiUrl);
-    return JSON.decode(response.body);
+
+    const JsonDecoder decoder = const JsonDecoder();
+
+    return decoder.convert(response.body);
   }
+
 }
