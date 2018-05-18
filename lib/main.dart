@@ -62,6 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
+ /* Função que chama o repositório que nos retornará a resposta da api.
+ * Observe que a função possue um "async" isso pq ele vai ser executado assincrono por conta
+ * do repositório que tb nos responde de forma assincrona pq temos que esperar a resposta, por isso o "await"
+ * antes do "repositorio.loadAnimes()".
+ * */
   void loadAnimes() async{
 
     Map map = await repositorio.loadAnimes();
@@ -82,6 +87,7 @@ class ConnectApi{
   final String url = 'http://104.131.18.84/anime/animes';
 
   Future <Map> loadAnimes() async{
+
     String apiUrl = url;
     http.Response response = await http.get(apiUrl);
 
