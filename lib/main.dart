@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -28,9 +29,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  List listAnimes = new List();
+
   ConnectApi repositorio = new ConnectApi();
 
-  String nomeAnime = "Futuro app de anime";
+  //String nomeAnime = "Futuro app de anime";
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              nomeAnime,
-            ),
+            _bildList()
           ],
         ),
       ),
@@ -71,14 +72,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Map map = await repositorio.loadAnimes();
 
-    print(map);
-    print('Nome primeiro anime: ${map['data'][0]['name']}');
+    //print(map);
+    //print('Nome primeiro anime: ${map['data'][0]['name']}');
 
     setState(() {
-      nomeAnime = map['data'][0]['name'];
+      listAnimes = map['data'];
     });
 
   }
+
+  Widget _bildList() {
+    ListView listView = new ListView.builder(
+      itemCount: listAnimes.length,
+      itemBuilder: (context, index){
+        Map anime = listAnimes[index];
+
+        return listTile(anime);
+      }
+    );
+
+    return new Flexible(
+      child: new Card(
+        child: listView,
+      )
+    );
+  }
+
+  ListTile listTile(anime){
+    return new ListTile(
+      leading: const Icon(Icons.broken_image),
+      title: new Text(anime['name']),
+    );
+  }
+
 }
 
 
