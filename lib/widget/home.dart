@@ -16,8 +16,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ConnectApi repositorio = new ConnectApi();
 
-  //String nomeAnime = "Futuro app de anime";
-
   @override
   Widget build(BuildContext context) {
     
@@ -90,28 +88,59 @@ class _MyHomePageState extends State<MyHomePage> {
        elevation: 2.0,
         child: new Column(
           children: <Widget>[
-            new Row(
-              children: <Widget>[
-                new Container(
-                  margin: const EdgeInsets.all(5.0),
-                  child: new Image.network(
-                    anime['thumb'],
-                    height: 70.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                new Container(
-                  child: new Text(anime['name']),
-                ),
-              ],
+            new Container(
+              margin: const EdgeInsets.all(5.0),
+              child: new Image.network(
+                anime['thumb'],
+                width: 600.0,
+                height: 160.0,
+                fit: BoxFit.cover,
+              ),
             ),
+            _titleSection(anime),
           ],
         ),
      )
    );
  }
 
-  // ListTile listTile(anime){
+ Widget _titleSection(anime){
+    return new Container(
+      padding: const EdgeInsets.all(32.0),
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  new Container(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: new Text(
+                      anime['name'],
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  new Text(
+                    'Descrição',
+                    style: new TextStyle(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                ],
+              )
+          ),
+          new Icon(
+            Icons.favorite_border,
+            color: Colors.red[500],
+          ),
+        ],
+      ),
+    );
+ }
+
+// ListTile listTile(anime){
   // return new ListTile(
   //     leading: new Image.network(anime['thumb'],),
   //     title: new Text(anime['name']),
