@@ -98,20 +98,39 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _layoutCarAnime(anime){
-    return new Container(
-      margin: const EdgeInsets.all(0.5),
-      child: new Card(
-        child: listTile(anime),
-      )
-    );
-  }
+ Widget _layoutCarAnime(anime){
+   return new Container(
+     margin: const EdgeInsets.all(0.5),
+     child: new Card(
+       elevation: 2.0,
+        child: new Column(
+          children: <Widget>[
+            new Row(
+              children: <Widget>[
+                new Container(
+                  margin: const EdgeInsets.all(5.0),
+                  child: new Image.network(
+                    anime['thumb'],
+                    height: 70.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                new Container(
+                  child: new Text(anime['name']),
+                ),
+              ],
+            ),
+          ],
+        ),
+     )
+   );
+ }
 
-  ListTile listTile(anime){
-    return new ListTile(
-      leading: new Image.network(anime['thumb']),
-      title: new Text(anime['name']),
-    );
-  }
+  // ListTile listTile(anime){
+  // return new ListTile(
+  //     leading: new Image.network(anime['thumb'],),
+  //     title: new Text(anime['name']),
+  //   );
+  // }
 
 }
