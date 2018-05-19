@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'conection/api.dart';
 
 void main() => runApp(new AnimeApp());
 
@@ -81,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
   }
-  
+
 /*
 * Cria uma listView pegando cada elemento a lista, chamando no retorno um metodo que monda os cards
 */
@@ -111,26 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ListTile listTile(anime){
     return new ListTile(
-      leading: const Icon(Icons.broken_image),
+      leading: new Icon(Icons.broken_image, size: 50.0,),
       title: new Text(anime['name']),
     );
-  }
-
-}
-
-
-class ConnectApi{
-
-  final String url = 'http://104.131.18.84/anime/animes';
-
-  Future <Map> loadAnimes() async{
-
-    String apiUrl = url;
-    http.Response response = await http.get(apiUrl);
-
-    const JsonDecoder decoder = const JsonDecoder();
-
-    return decoder.convert(response.body);
   }
 
 }
