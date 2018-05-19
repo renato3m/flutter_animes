@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ListTile listTile(anime){
     return new ListTile(
-      leading: new Icon(Icons.broken_image, size: 50.0,),
+      leading: new Image.network(anime['thumb']),
       title: new Text(anime['name']),
     );
   }
