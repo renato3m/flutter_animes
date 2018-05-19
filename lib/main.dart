@@ -14,7 +14,7 @@ class AnimeApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: new MyHomePage(title: 'Home Page'),
+      home: new MyHomePage(title: 'Animes'),
     );
   }
 }
@@ -37,6 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    loadAnimes(); //chama o metodo que carrega a lista de animes.
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -54,9 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: new Icon(Icons.check),
           backgroundColor: Colors.lightBlue,
           onPressed: (){
-
             loadAnimes();
-
           }
       ),
     );
@@ -80,20 +81,30 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
   }
-
+  
+/*
+* Cria uma listView pegando cada elemento a lista, chamando no retorno um metodo que monda os cards
+*/
   Widget _bildList() {
     ListView listView = new ListView.builder(
       itemCount: listAnimes.length,
       itemBuilder: (context, index){
         Map anime = listAnimes[index];
 
-        return listTile(anime);
+        return _layoutCarAnime(anime);
       }
     );
 
     return new Flexible(
+      child: listView
+    );
+  }
+
+  Widget _layoutCarAnime(anime){
+    return new Container(
+      margin: const EdgeInsets.all(0.5),
       child: new Card(
-        child: listView,
+        child: listTile(anime),
       )
     );
   }
