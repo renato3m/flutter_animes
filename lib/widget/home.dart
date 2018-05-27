@@ -10,11 +10,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin<MyHomePage> {
 
   List listAnimes = new List();
 
   ConnectApi repositorio = new ConnectApi();
+
+  TabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new TabController(vsync: this, length: 2);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +39,40 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _bildList()
+      bottomNavigationBar: new Material(
+        color: Colors.teal,
+        child: new TabBar(
+          controller: controller,
+          tabs: <Tab>[
+            new Tab(icon: new Icon(Icons.home), text: "Home",),
+            new Tab(icon: new Icon(Icons.favorite), text: "Favorito",),
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-          elevation: 0.0,
-          child: new Icon(Icons.check),
-          backgroundColor: Colors.lightBlue,
-          onPressed: (){
-            loadAnimes();
-          }
+      body: new TabBarView(
+        controller: controller,
+        children: <Widget>[
+          new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _bildList()
+              ],
+            ),
+          ),
+          new Center(
+            child: Text("Favoritos")
+          ), 
+        ],
       ),
+      // floatingActionButton: new FloatingActionButton(
+      //     elevation: 0.0,
+      //     child: new Icon(Icons.check),
+      //     backgroundColor: Colors.lightBlue,
+      //     onPressed: (){
+      //       loadAnimes();
+      //     }
+      // ),
     );
   }
 

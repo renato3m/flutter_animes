@@ -9,7 +9,7 @@ class AnimeApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter Anime',
       theme: new ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.teal,
       ),
       home: new MyHomePage(title: 'Animes'),
     );
