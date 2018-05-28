@@ -65,14 +65,6 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           ), 
         ],
       ),
-      // floatingActionButton: new FloatingActionButton(
-      //     elevation: 0.0,
-      //     child: new Icon(Icons.check),
-      //     backgroundColor: Colors.lightBlue,
-      //     onPressed: (){
-      //       loadAnimes();
-      //     }
-      // ),
     );
   }
 
@@ -85,9 +77,6 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   void loadAnimes() async{
 
     Map map = await repositorio.loadAnimes();
-
-    //print(map);
-    //print('Nome primeiro anime: ${map['data'][0]['name']}');
 
     setState(() {
       listAnimes = map['data'];
