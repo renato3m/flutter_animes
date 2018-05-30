@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../conection/api.dart';
+import 'episodios.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -103,26 +104,34 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   }
 
  Widget _layoutCarAnime(anime){
-   return new Container(
-     margin: const EdgeInsets.all(0.5),
-     child: new Card(
-       elevation: 2.0,
-        child: new Column(
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.all(5.0),
-              child: new Image.network(
-                anime['thumb'],
-                width: 600.0,
-                height: 160.0,
-                fit: BoxFit.cover,
-              ),
+    return new GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context, 
+          new MaterialPageRoute(builder: (context) => new EpisodiosPage(title: anime['name'])),
+        );
+      },
+      child: new Container(
+        margin: const EdgeInsets.all(0.5),
+        child: new Card(
+          elevation: 2.0,
+            child: new Column(
+              children: <Widget>[
+                new Container(
+                  margin: const EdgeInsets.all(5.0),
+                  child: new Image.network(
+                    anime['thumb'],
+                    width: 600.0,
+                    height: 160.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                _titleSection(anime),
+              ],
             ),
-            _titleSection(anime),
-          ],
-        ),
-     )
-   );
+        )
+      )
+    );
  }
 
  Widget _titleSection(anime){
@@ -161,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     );
  }
 
-// ListTile listTile(anime){
+  // ListTile listTile(anime){
   // return new ListTile(
   //     leading: new Image.network(anime['thumb'],),
   //     title: new Text(anime['name']),
